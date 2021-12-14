@@ -14,11 +14,11 @@ app.set("port", process.env.PORT || 3000);
 /* Middlewares */
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(
-    cors({
-        credentials: true
-    })
-);
+app.cors({
+    origin: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
 app.use(session({
     secret: 'secret',
     resave: true,
