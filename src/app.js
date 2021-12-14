@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
 const session = require('express-session');
 const passport = require('passport');
 
@@ -14,12 +13,20 @@ app.set("port", process.env.PORT || 3000);
 /* Middlewares */
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.cors({
-    origin: 'https://biblionotas.netlify.app',
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true,
-});
-app.use(cors);
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+    // intercept OPTIONS method
+    if ('OPTIONS' == req.method) {
+      res.send(200);
+    }
+    else {
+      next();
+    }
+};
+app.use(allowCrossDomain);
 app.use(session({
     secret: 'secret',
     resave: true,
