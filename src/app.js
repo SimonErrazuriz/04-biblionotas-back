@@ -9,10 +9,10 @@ const app = express();
 require('./config/passport');
 
 /* Definir el puerto */
-const port = process.env.PORT || 3000
-app.set("port", port);
+app.set("port", process.env.PORT || 3000);
 
 /* Middlewares */
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(session({
@@ -24,8 +24,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Cargar las rutas */
-app.use("/api/fichas", cors(), require('./routes/fichas'));
-app.use("/api/usuarios", cors(), require('./routes/usuarios'));
+app.use("/api/fichas", require('./routes/fichas'));
+app.use("/api/usuarios", require('./routes/usuarios'));
 
 /* Exportar */
 module.exports = app;
