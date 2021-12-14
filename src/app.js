@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require('cors');
 const express = require('express');
 const session = require('express-session');
 const passport = require('passport');
@@ -12,6 +13,7 @@ const port = process.env.PORT || 3000
 app.set("port", port);
 
 /* Middlewares */
+app.use(cors);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(session({
