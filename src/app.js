@@ -1,9 +1,9 @@
 require('dotenv').config();
 const cors = require('cors');
-const corsOptions ={
-    origin: true, 
-    credentials:true,            //access-control-allow-credentials:true
-    optionSuccessStatus:200
+const corsOptions = {
+    origin: true,
+    credentials: true,            //access-control-allow-credentials:true
+    optionSuccessStatus: 200
 }
 app.use(cors(corsOptions));
 app.use(allowCrossDomain);
@@ -16,7 +16,8 @@ const app = express();
 require('./config/passport');
 
 /* Definir el puerto */
-app.set("port", process.env.PORT || 3000);
+const port = process.env.PORT || 3000
+app.set("port", port);
 
 /* Middlewares */
 app.use(express.json());
